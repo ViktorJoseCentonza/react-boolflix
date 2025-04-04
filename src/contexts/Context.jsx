@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from "react";
-
+const api_key = import.meta.env.MOVIE_DB_API_KEY;
+const base_movies_api_url = `https://api.themoviedb.org/3/search/movie?api_key=${api_key}&query=${searchText}`;
 const Context = createContext();
 
 function MediaProvider({ children }) {
