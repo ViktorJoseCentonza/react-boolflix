@@ -1,8 +1,9 @@
 import { useMedia } from "../contexts/Context"
 export default function Main() {
+
     const { media } = useMedia()
-    console.log(`this log below is from the Main component! `)
-    console.log(media)
+    // console.log(`this log below is from the Main component! `)
+    // console.log(media)
 
     function handleRatings(vote) {
         let normalizedVote = vote / 2;  //reduce rating from 0/10 to 0/5
@@ -15,7 +16,7 @@ export default function Main() {
         if (rating.length === 0) {
             rating.push("no votes yet!")
         }
-        console.log(rating)
+        // console.log(rating)
         return rating
     }
 

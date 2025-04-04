@@ -5,8 +5,10 @@ const Context = createContext();
 function MediaProvider({ children }) {
     const [media, setMedia] = useState([]);
     const [searchText, setSearchText] = useState('ritorno')
+    const [TriggerApiCall, setTriggerApiCall] = useState(0)
 
     useEffect(() => {
+        console.log(`New Fetch executed with ${searchText}`)
         fetch(`https://api.themoviedb.org/3/search/movie?api_key=${api_key}&query=${searchText}`)
             .then((res) => res.json())
             .then((data) => {
@@ -15,11 +17,12 @@ function MediaProvider({ children }) {
             .catch(error => {
                 console.error(error)
             })
-    }, [])
+    }, [TriggerApiCall])
+
 
     return (
         <Context.Provider
-            value={{ media, setMedia, searchText, setSearchText }}>
+            value={{ media, setMedia, searchText, setSearchText, TriggerApiCall, setTriggerApiCall }}>
             {children}
         </Context.Provider>
     )
@@ -27,7 +30,7 @@ function MediaProvider({ children }) {
 
 function useMedia() {
     const MediaContext = useContext(Context);
-    console.log(MediaContext)
+    // console.log(MediaContext)
     return MediaContext;
 }
 

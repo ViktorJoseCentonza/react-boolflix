@@ -1,8 +1,7 @@
-import { useState } from "react"
 import { useMedia } from "../contexts/Context"
-export default function Header(props) {
-    const [searchTextArea, setSearchTextArea] = useState('')
-    console.log(props)
+
+export default function Header() {
+    const { searchText, setSearchText, TriggerApiCall, setTriggerApiCall } = useMedia()
 
 
     return (
@@ -10,8 +9,12 @@ export default function Header(props) {
             <header className="d-flex">
                 <section>
                     <nav className="d-flex">
-                        <input type="text" name="" id="" onChange={(e) => setSearchTextArea(e.target.value)} value={searchTextArea}></input>
-                        <button onClick={() => handleSearchText()}>Search</button>
+                        <input type="text" name="" id="" onChange={(e) => setSearchText(e.target.value)} value={searchText}></input>
+                        <button onClick={() => {
+                            setTriggerApiCall(TriggerApiCall + 1)
+                            console.log(TriggerApiCall)
+                        }
+                        }>Search</button>
 
                     </nav>
                 </section>
