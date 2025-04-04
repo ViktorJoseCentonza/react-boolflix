@@ -1,9 +1,10 @@
 import { useMedia } from "../contexts/Context"
+
 export default function Main() {
 
     const { media } = useMedia()
     // console.log(`this log below is from the Main component! `)
-    // console.log(media)
+    console.log(media)
 
     function handleRatings(vote) {
         let normalizedVote = vote / 2;  //reduce rating from 0/10 to 0/5
@@ -20,6 +21,14 @@ export default function Main() {
         return rating
     }
 
+    function handleFlag(language) {
+        // `https://www.worldometers.info//img/flags/small/tn_${language.toUpperCase()}-flag.gif`
+        // const flagUrl = `https://lipis.github.io/flag-icon-css/flags/4x3/${language.toUpperCase()}.svg`
+        const flagUrl = `https://www.worldometers.info//img/flags/small/tn_${language}-flag.gif`
+        console.log(flagUrl)
+        return flagUrl
+    }
+
 
 
     return (
@@ -30,10 +39,12 @@ export default function Main() {
                         <div key={`card-${index}`} className="card">
                             <h1>{singleMedia.title}</h1>
                             <h2>{singleMedia.original_title}</h2>
-                            <div>{singleMedia.original_language}</div>
+                            <img className="language-flag" src={handleFlag(singleMedia.original_language)} alt={singleMedia.original_language + "-flag"} />
                             {handleRatings(singleMedia.vote_average).map((star, index) => (
                                 <span key={`rating-${singleMedia.title}-${index}`}>{star}</span>
                             ))}
+
+
                         </div>
                     ))}
                 </div>
