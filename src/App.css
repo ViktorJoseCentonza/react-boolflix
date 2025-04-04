@@ -45,6 +45,12 @@ header {
 main {
   background-color: rgb(27, 27, 27);
   padding: 2rem 0 0 0;
+  height: fit-content;
+
+  section {
+    min-height: 90vh;
+
+  }
 
   h1 {
     font-size: 50px;
@@ -60,14 +66,17 @@ main {
 /* style for cardShelf*/
 
 .row {
+  border: 2px dotted lime;
+  min-height: 400px;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 2rem;
   align-items: stretch;
 }
 
 /* style for SingleCard */
 .card {
-  flex-grow: 1;
+  height: 400px;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -75,7 +84,6 @@ main {
   padding: 2em;
   border: 3px solid black;
   border-radius: 15px;
-  height: fit-content;
   background-color: grey;
 }
 

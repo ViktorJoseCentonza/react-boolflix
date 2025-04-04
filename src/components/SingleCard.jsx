@@ -3,8 +3,7 @@ export default function SingleCard(props) {
     let title_key = "title"
     let original_title_key = "original_title"
     if (mediaList[0][title_key] == undefined) {
-        // console.log("this is the if inside singlecard")
-        console.log(mediaList[0][title_key])
+
         title_key = "name"
         original_title_key = "original_name"
     }

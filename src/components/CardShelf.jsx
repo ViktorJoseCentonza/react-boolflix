@@ -9,6 +9,11 @@ export default function CardShelf() {
     // console.log(`this log below is from the Main component! `)
     console.log(tvSeries)
 
+    if (movies.length === 0 || tvSeries.length === 0) {
+        return <div>No results found</div>;
+    }
+
+
     return (
         <>
             <section id="movies">
