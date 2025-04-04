@@ -1,42 +1,68 @@
+/* #region general */
+
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  padding: 0;
+  margin: 0;
+  background-color: rgb(39, 39, 39);
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+body {
+  margin: 0;
+  padding: 0;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+section {
+  margin: auto;
+  width: 60%;
+}
+
+/* #region utilities */
+
+.d-flex {
+  display: flex;
+}
+
+/* #endregion utilities */
+
+
+/* #endregion general */
+/* #region components */
+/* style for header*/
+header {
+  align-items: center;
+  padding: 2rem 0;
+  background-color: black;
+
+  section {
+    nav {
+      align-items: center;
+      justify-content: center;
+    }
   }
-  to {
-    transform: rotate(360deg);
-  }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+/* style for main*/
+main {
+  background-color: rgb(27, 27, 27);
+  padding: 2rem 0 0 0;
 }
 
+/* style for cardShelf*/
+
+.row {
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+/* style for SingleCard */
 .card {
+
+  width: 15%;
   padding: 2em;
+  border: 3px solid black;
+  border-radius: 15px;
+  height: fit-content;
+  background-color: grey;
 }
 
-.read-the-docs {
-  color: #888;
-}
+/* #endregion components */
