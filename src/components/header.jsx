@@ -1,6 +1,7 @@
 import { useMedia } from "../contexts/Context"
 export default function Header() {
     const { media } = useMedia()
+    console.log(`this log below is from the header component! `)
     console.log(media)
     return (
         <>
@@ -8,7 +9,12 @@ export default function Header() {
                 <nav>
                     <textarea name="search" id=""></textarea>
                     <button>Search</button>
-                    <div>{media}</div>
+                    {media.map((singleMedia) => (
+                        <>
+                            <h1>{singleMedia.title}</h1>
+                            <span>{singleMedia.overview}</span>
+                        </>
+                    ))}
                 </nav>
             </header>
         </>
