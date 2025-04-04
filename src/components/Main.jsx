@@ -2,9 +2,13 @@ import { useMedia } from "../contexts/Context"
 
 export default function Main() {
 
-    const { media } = useMedia()
+    const { movies } = useMedia()
     // console.log(`this log below is from the Main component! `)
-    console.log(media)
+    console.log(movies)
+
+    const { tvSeries } = useMedia()
+    // console.log(`this log below is from the Main component! `)
+    console.log(tvSeries)
 
     function handleRatings(vote) {
         let normalizedVote = vote / 2;  //reduce rating from 0/10 to 0/5
@@ -33,18 +37,33 @@ export default function Main() {
 
     return (
         <main>
-            <section>
+            <section id="movies">
+                <h1>Films</h1>
                 <div className="row d-flex">
-                    {media.map((singleMedia, index) => (
+                    {movies.map((singleMovie, index) => (
                         <div key={`card-${index}`} className="card">
-                            <h1>{singleMedia.title}</h1>
-                            <h2>{singleMedia.original_title}</h2>
-                            <img className="language-flag" src={handleFlag(singleMedia.original_language)} alt={singleMedia.original_language + "-flag"} />
-                            {handleRatings(singleMedia.vote_average).map((star, index) => (
-                                <span key={`rating-${singleMedia.title}-${index}`}>{star}</span>
+                            <h2>{singleMovie.title}</h2>
+                            <h3>{singleMovie.original_title}</h3>
+                            <img className="language-flag" src={handleFlag(singleMovie.original_language)} alt={singleMovie.original_language + "-flag"} />
+                            {handleRatings(singleMovie.vote_average).map((star, index) => (
+                                <span key={`rating-${singleMovie.title}-${index}`}>{star}</span>
                             ))}
+                        </div>
+                    ))}
+                </div>
+            </section>
 
-
+            <section id="tv-series">
+                <h1>Tv Series</h1>
+                <div className="row d-flex">
+                    {tvSeries.map((singleSerie, index) => (
+                        <div key={`card-${index}`} className="card">
+                            <h2>{singleSerie.name}</h2>
+                            <h3>{singleSerie.original_name}</h3>
+                            <img className="language-flag" src={handleFlag(singleSerie.original_language)} alt={singleSerie.original_language + "-flag"} />
+                            {handleRatings(singleSerie.vote_average).map((star, index) => (
+                                <span key={`rating-${singleSerie.title}-${index}`}>{star}</span>
+                            ))}
                         </div>
                     ))}
                 </div>

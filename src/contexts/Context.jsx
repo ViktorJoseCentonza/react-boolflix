@@ -3,16 +3,27 @@ const api_key = import.meta.env.VITE_MOVIE_DB_API_KEY;
 const Context = createContext();
 
 function MediaProvider({ children }) {
-    const [media, setMedia] = useState([]);
+    const [movies, setMovies] = useState([]);
+    const [tvSeries, setTvSeries] = useState([]);
     const [searchText, setSearchText] = useState('ritorno')
     const [TriggerApiCall, setTriggerApiCall] = useState(0)
 
     useEffect(() => {
-        console.log(`New Fetch executed with ${searchText}`)
+        console.log(`New movie Fetch executed with ${searchText}`)
         fetch(`https://api.themoviedb.org/3/search/movie?api_key=${api_key}&query=${searchText}`)
             .then((res) => res.json())
             .then((data) => {
-                setMedia(data.results)
+                setMovies(data.results)
+            })
+            .catch(error => {
+                console.error(error)
+            })
+
+        console.log(`New TvSeries Fetch executed with ${searchText}`)
+        fetch(`https://api.themoviedb.org/3/search/tv?api_key=${api_key}&query=${searchText}`)
+            .then((res) => res.json())
+            .then((data) => {
+                setTvSeries(data.results)
             })
             .catch(error => {
                 console.error(error)
@@ -22,7 +33,7 @@ function MediaProvider({ children }) {
 
     return (
         <Context.Provider
-            value={{ media, setMedia, searchText, setSearchText, TriggerApiCall, setTriggerApiCall }}>
+            value={{ movies, tvSeries, searchText, setSearchText, TriggerApiCall, setTriggerApiCall }}>
             {children}
         </Context.Provider>
     )
