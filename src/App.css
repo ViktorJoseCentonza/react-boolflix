@@ -62,11 +62,15 @@ main {
 .row {
   flex-wrap: wrap;
   gap: 2rem;
+  align-items: stretch;
 }
 
 /* style for SingleCard */
 .card {
-
+  flex-grow: 1;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   width: 15%;
   padding: 2em;
   border: 3px solid black;

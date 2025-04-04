@@ -16,7 +16,7 @@ export default function CardShelf() {
                 <SingleCard media={movies} />
             </section>
 
-            <section id="movies">
+            <section id="Tv Series">
                 <h1>Tv Series</h1>
                 <SingleCard media={tvSeries} />
             </section>

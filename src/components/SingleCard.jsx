@@ -2,7 +2,9 @@ export default function SingleCard(props) {
     const mediaList = props.media
     let title_key = "title"
     let original_title_key = "original_title"
-    if (mediaList[title_key]) {
+    if (mediaList[0][title_key] == undefined) {
+        // console.log("this is the if inside singlecard")
+        console.log(mediaList[0][title_key])
         title_key = "name"
         original_title_key = "original_name"
     }
@@ -30,11 +32,17 @@ export default function SingleCard(props) {
         }
     }
 
+    function isBackgroundPresent(singleMedia) {
+        if (singleMedia.poster_path != undefined) {
+            return `https://image.tmdb.org/t/p/w185/${singleMedia.poster_path}`
+        } else return "https://images.ctfassets.net/4cd45et68cgf/Rx83JoRDMkYNlMC9MKzcB/2b14d5a59fc3937afd3f03191e19502d/Netflix-Symbol.png?w=700&h=456"
+    }
+
 
     return (
         <div className="row d-flex">
             {mediaList.map((singleMedia, index) => (
-                <div key={`card-${index}`} className="col card">
+                <div key={`card-${index}`} className="col card" style={{ backgroundImage: `url(${isBackgroundPresent(singleMedia)} )` }}>
                     <div className="card-head">
                         <h2>{singleMedia[title_key]}</h2>
                     </div>
@@ -46,7 +54,6 @@ export default function SingleCard(props) {
                             <span key={`rating-${singleMedia.title}-${index}`}>{star}</span>
                         ))}
                     </div>
-                    <img src={singleMedia.poster_path != undefined ? `https://image.tmdb.org/t/p/w185/${singleMedia.poster_path}` : "https://images.ctfassets.net/4cd45et68cgf/Rx83JoRDMkYNlMC9MKzcB/2b14d5a59fc3937afd3f03191e19502d/Netflix-Symbol.png?w=700&h=456"} alt="Media-image" />
 
                 </div>
             ))
