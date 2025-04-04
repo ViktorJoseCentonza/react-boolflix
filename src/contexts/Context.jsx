@@ -4,7 +4,7 @@ const Context = createContext();
 
 function MediaProvider({ children }) {
     const [media, setMedia] = useState([]);
-    const [searchText, setsearchText] = useState('ritorno')
+    const [searchText, setSearchText] = useState('ritorno')
 
     useEffect(() => {
         fetch(`https://api.themoviedb.org/3/search/movie?api_key=${api_key}&query=${searchText}`)
@@ -19,7 +19,7 @@ function MediaProvider({ children }) {
 
     return (
         <Context.Provider
-            value={{ media, setMedia, searchText, setsearchText }}>
+            value={{ media, setMedia, searchText, setSearchText }}>
             {children}
         </Context.Provider>
     )
