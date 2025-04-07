@@ -1,3 +1,4 @@
+import Rating from "./Rating"
 export default function SingleCard(props) {
     const mediaList = props.media
     let title_key = "title"
@@ -11,13 +12,8 @@ export default function SingleCard(props) {
     function handleRatings(vote) {
         let normalizedVote = vote / 2;  //reduce rating from 0/10 to 0/5
         Math.ceil(normalizedVote)
-        const rating = []
-        for (normalizedVote; normalizedVote > 0; normalizedVote--) {
-            rating.push('*')
-        }
-        if (rating.length === 0) {
-            rating.push("no votes yet!")
-        }
+        let rating = [];
+
         return rating
     }
 
@@ -42,18 +38,18 @@ export default function SingleCard(props) {
         <div className="row d-flex">
             {mediaList.map((singleMedia, index) => (
                 <div key={`card-${index}`} className="col card" style={{ backgroundImage: `url(${isBackgroundPresent(singleMedia)} )` }}>
-                    <div className="card-head">
-                        <h2>{singleMedia[title_key]}</h2>
-                    </div>
-                    <div className="card-body">
-                        {/* <h3>{singleMedia.original_title != undefined ? singleMedia.original_title : singleMedia.original_name}</h3> */}
-                        {checkCurrentAndOriginalName(singleMedia[title_key], singleMedia[original_title_key])}
-                        <img className="language-flag" src={`https://www.worldometers.info//img/flags/small/tn_${singleMedia.original_language === "en" ? "uk" : singleMedia.original_language}-flag.gif`} alt={singleMedia.original_language + "-flag"} />
-                        {handleRatings(singleMedia.vote_average).map((star, index) => (
-                            <span key={`rating-${singleMedia.title}-${index}`}>{star}</span>
-                        ))}
-                    </div>
+                    <div className="card-overlay">
 
+                        <div className="card-head">
+                            <h2>{singleMedia[title_key]}</h2>
+                        </div>
+                        <div className="card-body">
+                            {checkCurrentAndOriginalName(singleMedia[title_key], singleMedia[original_title_key])}
+                            <img className="language-flag" src={`https://www.worldometers.info//img/flags/small/tn_${singleMedia.original_language === "en" ? "uk" : singleMedia.original_language}-flag.gif`} alt={singleMedia.original_language + "-flag"} />
+
+                        </div>
+                        <Rating rating={singleMedia.vote_average / 2} />
+                    </div>
                 </div>
             ))
             }

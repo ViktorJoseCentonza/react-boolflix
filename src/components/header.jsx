@@ -7,7 +7,10 @@ export default function Header() {
     return (
         <>
             <header className="d-flex">
-                <section>
+                <section className="d-flex">
+                    <div className="logo">
+                        <h1>NETFLIX</h1>
+                    </div>
                     <nav className="d-flex">
                         <input type="text" name="" id="" onChange={(e) => setSearchText(e.target.value)} value={searchText}></input>
                         <button onClick={() => {

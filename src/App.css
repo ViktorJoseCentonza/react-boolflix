@@ -9,6 +9,7 @@
 body {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 section {
@@ -34,7 +35,21 @@ header {
   background-color: black;
 
   section {
+    width: 80%;
+
+    .logo {
+      color: white;
+      width: 30%;
+
+      h1 {
+        font-size: 60px;
+        margin: 0;
+      }
+    }
+
     nav {
+      position: relative;
+      left: 12.5%;
       align-items: center;
       justify-content: center;
     }
@@ -66,12 +81,15 @@ main {
 /* style for cardShelf*/
 
 .row {
-  border: 2px dotted lime;
   min-height: 400px;
   flex-wrap: wrap;
   justify-content: center;
   gap: 2rem;
   align-items: stretch;
+
+  .col {
+    width: 25%;
+  }
 }
 
 /* style for SingleCard */
@@ -80,11 +98,52 @@ main {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  width: 15%;
-  padding: 2em;
-  border: 3px solid black;
+
   border-radius: 15px;
   background-color: grey;
+
+  .card-overlay {
+    display: none;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.95);
+    width: 100%;
+    height: 100%;
+    border-radius: 14px;
+
+    .card-head {
+      padding: 1rem;
+
+      h2 {
+        margin: 0;
+      }
+    }
+
+    .card-body {
+      padding: 1rem;
+
+      h3 {
+        margin: 0;
+      }
+    }
+  }
+
+  &:hover {
+    .card-overlay {
+      display: block;
+    }
+  }
 }
+
+.rating-container {
+  padding-left: 0.5rem;
+  display: flex;
+  gap: 0.25rem;
+
+  .star {
+    width: 25px;
+  }
+}
+
+
 
 /* #endregion components */
