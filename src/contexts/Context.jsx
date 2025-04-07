@@ -54,7 +54,7 @@ function MediaProvider({ children }) {
         fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${api_key}`)
             .then((res) => res.json())
             .then((data) => {
-                setPopularMovies(data.results)
+                setPopularMovies(getCredits(data.results, "movie"))
                 // console.log(popularMovies)
             })
             .catch(error => {
@@ -65,7 +65,7 @@ function MediaProvider({ children }) {
         fetch(`https://api.themoviedb.org/3/tv/popular?api_key=${api_key}`)
             .then((res) => res.json())
             .then((data) => {
-                setPopularTvSeries(data.results)
+                setPopularTvSeries(getCredits(data.results, "tv"))
                 // console.log(popularTvSeries)
             })
             .catch(error => {
