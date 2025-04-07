@@ -9,7 +9,6 @@ export default function SingleCard(props) {
     }
 
     if (mediaList[0][title_key] == undefined) {
-
         title_key = "name"
         original_title_key = "original_name"
     }
@@ -30,23 +29,33 @@ export default function SingleCard(props) {
         } else return "https://images.ctfassets.net/4cd45et68cgf/Rx83JoRDMkYNlMC9MKzcB/2b14d5a59fc3937afd3f03191e19502d/Netflix-Symbol.png?w=700&h=456"
     }
 
-
     return (
         <div className="row d-flex">
             {mediaList.map((singleMedia, index) => (
 
                 <div key={`card-${index}`} className="col card" style={{ backgroundImage: `url(${isBackgroundPresent(singleMedia)} )` }}>
                     <div className="card-overlay">
-
                         <div className="card-head">
                             <h2>{singleMedia[title_key]}</h2>
                         </div>
                         <div className="card-body">
                             {checkCurrentAndOriginalName(singleMedia[title_key], singleMedia[original_title_key])}
                             <img className="language-flag" src={`https://www.worldometers.info//img/flags/small/tn_${singleMedia.original_language === "en" ? "uk" : singleMedia.original_language}-flag.gif`} alt={singleMedia.original_language + "-flag"} />
+                            <Rating rating={singleMedia.vote_average / 2} />
+                            <div>Actors:
+                                <span>
 
+                                    {singleMedia.actors ?
+                                        singleMedia.actors.map((actor, i) => {
+                                            { console.log("this is the actor's name inside the card!") }
+                                            { console.log(actor.name) }
+                                            <span key={`${singleMedia[title_key]}-actor-${i}`}>{actor.name}</span>
+                                        })
+                                        : <span key={`${singleMedia[title_key]}-no-actors`}>no info</span>
+                                    }
+                                </span>
+                            </div>
                         </div>
-                        <Rating rating={singleMedia.vote_average / 2} />
                     </div>
                 </div>
             ))
