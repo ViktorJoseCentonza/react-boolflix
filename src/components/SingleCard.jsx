@@ -45,13 +45,14 @@ export default function SingleCard(props) {
                             <div>Actors:
                                 <span>
 
-                                    {singleMedia.actors ?
+                                    {singleMedia.actors ? (
                                         singleMedia.actors.map((actor, i) => {
-                                            { console.log("this is the actor's name inside the card!") }
-                                            { console.log(actor.name) }
-                                            <span key={`${singleMedia[title_key]}-actor-${i}`}>{actor.name}</span>
+                                            console.log("this is the actor's name inside the card!");
+                                            console.log(actor.name);
+                                            return <span key={`${singleMedia[title_key]}-actor-${i}`}>{actor.name}</span>;
                                         })
-                                        : <span key={`${singleMedia[title_key]}-no-actors`}>no info</span>
+                                    )
+                                        : (<span key={`${singleMedia[title_key]}-no-actors`}>no info</span>)
                                     }
                                 </span>
                             </div>

@@ -10,6 +10,7 @@ function MediaProvider({ children }) {
     const [tvSeries, setTvSeries] = useState([]);
     const [searchText, setSearchText] = useState('')
     const [TriggerApiCall, setTriggerApiCall] = useState(0)
+    const [_, forceReRender] = useState(0)
 
     //maybe popular movies and tvseries don't need useState since they only get fetched once?
 
@@ -28,6 +29,7 @@ function MediaProvider({ children }) {
                         console.log(`${media.title, media.name} does not have actors data`)
                     } else {
                         media.actors = data.cast;
+                        forceReRender(prev => prev + 1); //needed to re-render after each fetch has finished
                     }
 
                     // console.log("this is the media variable in the context after assigning cast name getCredits function!")
@@ -75,6 +77,7 @@ function MediaProvider({ children }) {
             .then((res) => res.json())
             .then((data) => {
                 console.log(getCredits(data.results))
+                //this returns before getCredits fetches all data!! ISSUE
                 setMovies(getCredits(data.results))
                 // console.log("this is the movies variable!")
                 // console.log(movies)
