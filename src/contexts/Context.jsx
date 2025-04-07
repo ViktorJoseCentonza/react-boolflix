@@ -14,7 +14,11 @@ function MediaProvider({ children }) {
 
     //maybe popular movies and tvseries don't need useState since they only get fetched once?
 
-    function getCredits(mediaList) {
+    function getCredits(mediaList, mediaType) {
+        let titleKey = "title"
+        if (mediaType === "tv") {
+            titleKey = "name"
+        }
         // console.log("this is the medialist inside getcredits")
         // console.log(mediaList)
         mediaList.map((media) => {
@@ -22,7 +26,7 @@ function MediaProvider({ children }) {
             // console.log(media)
             // console.log("this is the single media ID inside getcredits")
             // console.log(media.id)
-            fetch(`https://api.themoviedb.org/3/movie/${media.id}/credits?api_key=${api_key}`)
+            fetch(`https://api.themoviedb.org/3/${mediaType}/${media.id}/credits?api_key=${api_key}`)
                 .then((res) => res.json())
                 .then((data) => {
                     if (data.success === false && data.id === undefined) {
@@ -76,9 +80,8 @@ function MediaProvider({ children }) {
         fetch(`https://api.themoviedb.org/3/search/movie?api_key=${api_key}&query=${searchText}`)
             .then((res) => res.json())
             .then((data) => {
-                console.log(getCredits(data.results))
-                //this returns before getCredits fetches all data!! ISSUE
-                setMovies(getCredits(data.results))
+                // console.log(getMovieCredits(data.results))
+                setMovies(getCredits(data.results, "movie"))
                 // console.log("this is the movies variable!")
                 // console.log(movies)
             })
@@ -90,7 +93,7 @@ function MediaProvider({ children }) {
         fetch(`https://api.themoviedb.org/3/search/tv?api_key=${api_key}&query=${searchText}`)
             .then((res) => res.json())
             .then((data) => {
-                setTvSeries(getCredits(data.results))
+                setTvSeries(getCredits(data.results, "tv"))
             })
             .catch(error => {
                 console.error(error)
