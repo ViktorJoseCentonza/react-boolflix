@@ -3,18 +3,15 @@ export default function SingleCard(props) {
     const mediaList = props.media
     let title_key = "title"
     let original_title_key = "original_title"
+
+    if (mediaList[0] == undefined) {
+        return <div>No results found</div>;
+    }
+
     if (mediaList[0][title_key] == undefined) {
 
         title_key = "name"
         original_title_key = "original_name"
-    }
-
-    function handleRatings(vote) {
-        let normalizedVote = vote / 2;  //reduce rating from 0/10 to 0/5
-        Math.ceil(normalizedVote)
-        let rating = [];
-
-        return rating
     }
 
     function checkCurrentAndOriginalName(currentTitle, originalTitle) {
@@ -29,7 +26,7 @@ export default function SingleCard(props) {
 
     function isBackgroundPresent(singleMedia) {
         if (singleMedia.poster_path != undefined) {
-            return `https://image.tmdb.org/t/p/w185/${singleMedia.poster_path}`
+            return `https://image.tmdb.org/t/p/w342/${singleMedia.poster_path}`
         } else return "https://images.ctfassets.net/4cd45et68cgf/Rx83JoRDMkYNlMC9MKzcB/2b14d5a59fc3937afd3f03191e19502d/Netflix-Symbol.png?w=700&h=456"
     }
 
@@ -37,6 +34,7 @@ export default function SingleCard(props) {
     return (
         <div className="row d-flex">
             {mediaList.map((singleMedia, index) => (
+
                 <div key={`card-${index}`} className="col card" style={{ backgroundImage: `url(${isBackgroundPresent(singleMedia)} )` }}>
                     <div className="card-overlay">
 

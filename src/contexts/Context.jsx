@@ -4,13 +4,38 @@ const url = "https://api.themoviedb.org/3/search/movie"
 const Context = createContext();
 
 function MediaProvider({ children }) {
+    const [popularMovies, setPopularMovies] = useState([])
     const [movies, setMovies] = useState([]);
+    const [popularTvSeries, setPopularTvSeries] = useState([])
     const [tvSeries, setTvSeries] = useState([]);
-    const [searchText, setSearchText] = useState('marvel')
+    const [searchText, setSearchText] = useState('')
     const [TriggerApiCall, setTriggerApiCall] = useState(0)
 
+    //maybe popular movies and tvseries don't need useState since they only get fetched once?
+
     useEffect(() => {
-        console.log(`New movie Fetch executed with ${searchText}`)
+
+
+        fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${api_key}&query=${searchText}`)
+            .then((res) => res.json())
+            .then((data) => {
+                setPopularMovies(data.results)
+                console.log(popularMovies)
+            })
+        console.log(`popular movies fetched!`)
+
+
+        fetch(`https://api.themoviedb.org/3/tv/popular?api_key=${api_key}&query=${searchText}`)
+            .then((res) => res.json())
+            .then((data) => {
+                setPopularTvSeries(data.results)
+                console.log(popularTvSeries)
+            })
+        console.log(`popular TvSeries fetched!`)
+    }, [])
+
+    useEffect(() => {
+        // console.log(`New movie Fetch executed with ${searchText}`)
 
         fetch(`https://api.themoviedb.org/3/search/movie?api_key=${api_key}&query=${searchText}`)
             .then((res) => res.json())
@@ -21,7 +46,7 @@ function MediaProvider({ children }) {
                 console.error(error)
             })
 
-        console.log(`New TvSeries Fetch executed with ${searchText}`)
+        // console.log(`New TvSeries Fetch executed with ${searchText}`)
         fetch(`https://api.themoviedb.org/3/search/tv?api_key=${api_key}&query=${searchText}`)
             .then((res) => res.json())
             .then((data) => {
@@ -35,7 +60,7 @@ function MediaProvider({ children }) {
 
     return (
         <Context.Provider
-            value={{ movies, tvSeries, searchText, setSearchText, TriggerApiCall, setTriggerApiCall }}>
+            value={{ movies, popularMovies, tvSeries, popularTvSeries, searchText, setSearchText, TriggerApiCall, setTriggerApiCall }}>
             {children}
         </Context.Provider>
     )

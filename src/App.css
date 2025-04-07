@@ -62,11 +62,6 @@ main {
   padding: 2rem 0 0 0;
   height: fit-content;
 
-  section {
-    min-height: 90vh;
-
-  }
-
   h1 {
     font-size: 50px;
     color: white;
@@ -81,7 +76,6 @@ main {
 /* style for cardShelf*/
 
 .row {
-  min-height: 400px;
   flex-wrap: wrap;
   justify-content: center;
   gap: 2rem;
@@ -101,6 +95,7 @@ main {
 
   border-radius: 15px;
   background-color: grey;
+  box-shadow: 10px 10px 45px -4px rgba(0, 0, 0, 0.75) inset;
 
   .card-overlay {
     display: none;
@@ -112,6 +107,7 @@ main {
 
     .card-head {
       padding: 1rem;
+
 
       h2 {
         margin: 0;
