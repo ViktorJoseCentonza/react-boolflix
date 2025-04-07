@@ -5,7 +5,7 @@ const Context = createContext();
 
 function MediaProvider({ children }) {
     const [popularMovies, setPopularMovies] = useState([])
-    const [movies, setMovies] = useState([]);
+    let movies = [];
     const [popularTvSeries, setPopularTvSeries] = useState([])
     const [tvSeries, setTvSeries] = useState([]);
     const [searchText, setSearchText] = useState('')
@@ -13,23 +13,55 @@ function MediaProvider({ children }) {
 
     //maybe popular movies and tvseries don't need useState since they only get fetched once?
 
+    function getCredits(mediaList) {
+        // console.log("this is the medialist inside getcredits")
+        // console.log(mediaList)
+        mediaList.map((media) => {
+
+            // console.log("this is the single media inside getcredits")
+            // console.log(media)
+            // console.log("this is the single media ID inside getcredits")
+            // console.log(media.id)
+
+            fetch(`https://api.themoviedb.org/3/movie/${media.id}/credits?api_key=${api_key}`)
+                .then((res) => res.json())
+                .then((data) => {
+                    // console.log("this is the name data inside getcredits")
+                    // console.log(data.cast.name)
+                    media.actors = data.cast;
+                    // console.log("this is the media variable in the context after assigning cast name getCredits function!")
+                    // console.log(media.actors)
+                })
+                .catch(error => {
+                    console.error(error)
+                })
+        })
+
+        return mediaList
+    }
+
     useEffect(() => {
 
 
-        fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${api_key}&query=${searchText}`)
+        fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${api_key}`)
             .then((res) => res.json())
             .then((data) => {
                 setPopularMovies(data.results)
-                console.log(popularMovies)
+                // console.log(popularMovies)
+            })
+            .catch(error => {
+                console.error(error)
             })
         console.log(`popular movies fetched!`)
 
-
-        fetch(`https://api.themoviedb.org/3/tv/popular?api_key=${api_key}&query=${searchText}`)
+        fetch(`https://api.themoviedb.org/3/tv/popular?api_key=${api_key}`)
             .then((res) => res.json())
             .then((data) => {
                 setPopularTvSeries(data.results)
-                console.log(popularTvSeries)
+                // console.log(popularTvSeries)
+            })
+            .catch(error => {
+                console.error(error)
             })
         console.log(`popular TvSeries fetched!`)
     }, [])
@@ -40,7 +72,9 @@ function MediaProvider({ children }) {
         fetch(`https://api.themoviedb.org/3/search/movie?api_key=${api_key}&query=${searchText}`)
             .then((res) => res.json())
             .then((data) => {
-                setMovies(data.results)
+                movies = getCredits(data.results)
+                // console.log("this is the movies variable!")
+                // console.log(movies)
             })
             .catch(error => {
                 console.error(error)
@@ -50,7 +84,7 @@ function MediaProvider({ children }) {
         fetch(`https://api.themoviedb.org/3/search/tv?api_key=${api_key}&query=${searchText}`)
             .then((res) => res.json())
             .then((data) => {
-                setTvSeries(data.results)
+                setTvSeries(getCredits(data.results))
             })
             .catch(error => {
                 console.error(error)
